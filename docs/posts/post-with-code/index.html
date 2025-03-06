@@ -22,6 +22,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -156,9 +190,643 @@ ul.task-list li input[type="checkbox"] {
 
 
 
-<p>This is a post with executable code.</p>
+<div id="78ec2610" class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> palmerpenguins <span class="im">import</span> load_penguins</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. 데이터 불러오기 및 기본 정보 출력</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>penguins <span class="op">=</span> load_penguins()</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>penguins.info()</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. 결측치 제거 및 종별 통계량 계산</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>penguins <span class="op">=</span> penguins.dropna()</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>summary <span class="op">=</span> penguins.groupby(<span class="st">'species'</span>)[[<span class="st">'bill_length_mm'</span>, <span class="st">'bill_depth_mm'</span>, <span class="st">'flipper_length_mm'</span>, <span class="st">'body_mass_g'</span>]]</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>stats <span class="op">=</span> summary.agg([<span class="st">'min'</span>, <span class="st">'max'</span>, <span class="st">'median'</span>, <span class="st">'mean'</span>])</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Species별 통계량:"</span>)</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(stats)</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. 각 측정값별 최대/최소 값을 가진 종 확인</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>max_species <span class="op">=</span> summary.idxmax()</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>max_values <span class="op">=</span> summary.<span class="bu">max</span>()</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>min_species <span class="op">=</span> summary.idxmin()</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>min_values <span class="op">=</span> summary.<span class="bu">min</span>()</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. 종별 통계량 계산 (stats DataFrame)</span></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>stats <span class="op">=</span> summary.agg([<span class="st">'min'</span>, <span class="st">'max'</span>, <span class="st">'median'</span>, <span class="st">'mean'</span>])</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. stats의 MultiIndex 컬럼에서 'mean'만 추출</span></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>mean_stats <span class="op">=</span> stats.xs(<span class="st">'mean'</span>, axis<span class="op">=</span><span class="dv">1</span>, level<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. 각 측정치별로 최대/최소값과 해당 종 구하기</span></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>max_species <span class="op">=</span> mean_stats.idxmax()</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>max_values <span class="op">=</span> mean_stats.<span class="bu">max</span>()</span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>min_species <span class="op">=</span> mean_stats.idxmin()</span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>min_values <span class="op">=</span> mean_stats.<span class="bu">min</span>()</span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a><span class="co"># 4. 결과 DataFrame 생성: index는 각 측정치 이름이 됨</span></span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>extreme_species <span class="op">=</span> pd.DataFrame({</span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Max Species"</span>: max_species,</span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Max Value"</span>: max_values,</span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Min Species"</span>: min_species,</span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Min Value"</span>: min_values</span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(extreme_species)</span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">각 측정값별 최대/최소 값을 가진 종:"</span>)</span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(extreme_species)</span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a><span class="co"># 4. 서식지별, 성별, 종별 개체 수 집계</span></span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a>result <span class="op">=</span> penguins.groupby([<span class="st">'island'</span>, <span class="st">'species'</span>, <span class="st">'sex'</span>]).size().reset_index(name<span class="op">=</span><span class="st">'count'</span>)</span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">서식지, 종, 성별 별 개체 수:"</span>)</span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(result)</span>
+<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a>result2 <span class="op">=</span> penguins.groupby([<span class="st">'island'</span>, <span class="st">'species'</span>]).size().reset_index(name<span class="op">=</span><span class="st">'count'</span>)</span>
+<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">서식지와 종별 개체 수:"</span>)</span>
+<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(result2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>&lt;class 'pandas.core.frame.DataFrame'&gt;
+RangeIndex: 344 entries, 0 to 343
+Data columns (total 8 columns):
+ #   Column             Non-Null Count  Dtype  
+---  ------             --------------  -----  
+ 0   species            344 non-null    object 
+ 1   island             344 non-null    object 
+ 2   bill_length_mm     342 non-null    float64
+ 3   bill_depth_mm      342 non-null    float64
+ 4   flipper_length_mm  342 non-null    float64
+ 5   body_mass_g        342 non-null    float64
+ 6   sex                333 non-null    object 
+ 7   year               344 non-null    int64  
+dtypes: float64(4), int64(1), object(3)
+memory usage: 21.6+ KB
+Species별 통계량:
+          bill_length_mm                         bill_depth_mm               \
+                     min   max median       mean           min   max median   
+species                                                                       
+Adelie              32.1  46.0  38.85  38.823973          15.5  21.5  18.40   
+Chinstrap           40.9  58.0  49.55  48.833824          16.4  20.8  18.45   
+Gentoo              40.9  59.6  47.40  47.568067          13.1  17.3  15.00   
+
+                     flipper_length_mm                           body_mass_g  \
+                mean               min    max median        mean         min   
+species                                                                        
+Adelie     18.347260             172.0  210.0  190.0  190.102740      2850.0   
+Chinstrap  18.420588             178.0  212.0  196.0  195.823529      2700.0   
+Gentoo     14.996639             203.0  231.0  216.0  217.235294      3950.0   
+
+                                        
+              max  median         mean  
+species                                 
+Adelie     4775.0  3700.0  3706.164384  
+Chinstrap  4800.0  3700.0  3733.088235  
+Gentoo     6300.0  5050.0  5092.436975  
+                  Max Species    Max Value Min Species    Min Value
+bill_length_mm      Chinstrap    48.833824      Adelie    38.823973
+bill_depth_mm       Chinstrap    18.420588      Gentoo    14.996639
+flipper_length_mm      Gentoo   217.235294      Adelie   190.102740
+body_mass_g            Gentoo  5092.436975      Adelie  3706.164384
+
+각 측정값별 최대/최소 값을 가진 종:
+                  Max Species    Max Value Min Species    Min Value
+bill_length_mm      Chinstrap    48.833824      Adelie    38.823973
+bill_depth_mm       Chinstrap    18.420588      Gentoo    14.996639
+flipper_length_mm      Gentoo   217.235294      Adelie   190.102740
+body_mass_g            Gentoo  5092.436975      Adelie  3706.164384
+
+서식지, 종, 성별 별 개체 수:
+      island    species     sex  count
+0     Biscoe     Adelie  female     22
+1     Biscoe     Adelie    male     22
+2     Biscoe     Gentoo  female     58
+3     Biscoe     Gentoo    male     61
+4      Dream     Adelie  female     27
+5      Dream     Adelie    male     28
+6      Dream  Chinstrap  female     34
+7      Dream  Chinstrap    male     34
+8  Torgersen     Adelie  female     24
+9  Torgersen     Adelie    male     23
+
+서식지와 종별 개체 수:
+      island    species  count
+0     Biscoe     Adelie     44
+1     Biscoe     Gentoo    119
+2      Dream     Adelie     55
+3      Dream  Chinstrap     68
+4  Torgersen     Adelie     47</code></pre>
+</div>
+</div>
+<hr>
+<p>title: “팔머펭귄 종별 특징 분석 _ 5조(김예원, 박한슬, 송성필)” format: html jupyter: python3</p>
+<hr>
+<section id="분석-개요-및-목표" class="level2">
+<h2 class="anchored" data-anchor-id="분석-개요-및-목표">1. 분석 개요 및 목표</h2>
+<ul>
+<li>펭귄 3종(Adelie, Gentoo, Chinstrap)별 특징을 알아보자!</li>
+</ul>
+</section>
+<section id="데이터소개" class="level2">
+<h2 class="anchored" data-anchor-id="데이터소개">2. 데이터소개</h2>
+<ul>
+<li><strong>주요 변수:</strong>
+<ul>
+<li><strong>신체 특성:</strong> 부리 길이(<code>bill_length_mm</code>), 부리 깊이(<code>bill_depth_mm</code>), 날개 길이(<code>flip_len_mm</code>), 체중(<code>body_mass_g</code>)</li>
+<li><strong>서식지:</strong> 섬(<code>island</code>), 종(<code>species</code>), 성별(<code>sex</code>)</li>
+<li><strong>연도:</strong> 데이터 수집 연도(<code>year</code>)</li>
+</ul></li>
+</ul>
+</section>
+<section id="분석-내용" class="level2">
+<h2 class="anchored" data-anchor-id="분석-내용">3. 분석 내용</h2>
+<section id="종별-서식지" class="level4">
+<h4 class="anchored" data-anchor-id="종별-서식지">3.1 종별 서식지</h4>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: center;"></th>
+<th style="text-align: center;">Adelie</th>
+<th style="text-align: center;">Gentoo</th>
+<th style="text-align: center;">Chinstrap</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">Torgers</td>
+<td style="text-align: center;">O</td>
+<td style="text-align: center;">X</td>
+<td style="text-align: center;">X</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">Biscoe</td>
+<td style="text-align: center;">O</td>
+<td style="text-align: center;">O</td>
+<td style="text-align: center;">X</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">Dream</td>
+<td style="text-align: center;">O</td>
+<td style="text-align: center;">X</td>
+<td style="text-align: center;">O</td>
+</tr>
+</tbody>
+</table>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>species</th>
+<th>island</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Adelie</td>
+<td>Torgersen’, ‘Biscoe’, ’Dream</td>
+</tr>
+<tr class="even">
+<td>Gentoo</td>
+<td>’Biscoe</td>
+</tr>
+<tr class="odd">
+<td>Chinstrap</td>
+<td>Dream</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="상기-index는-다음을-나타낸다." class="level4">
+<h4 class="anchored" data-anchor-id="상기-index는-다음을-나타낸다.">상기 index는 다음을 나타낸다.</h4>
+<p>Gentoo펭귄은 Biscoe섬만 서식한다.</p>
+<p>Chinstrap펭귄은 Dream섬에서만 서식한다.</p>
+<p>Adelie펭귄은 Torgers, Biscoe, Dream 전지역에서 서식한다.</p>
+</section>
+</section>
+<section id="종별-신체-특성" class="level2">
+<h2 class="anchored" data-anchor-id="종별-신체-특성">3.2 종별 신체 특성</h2>
+<section id="종별-부리-길이최소최대중앙값평균" class="level4">
+<h4 class="anchored" data-anchor-id="종별-부리-길이최소최대중앙값평균">3.2.1 종별 부리 길이(최소/최대/중앙값/평균)</h4>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">species</th>
+<th style="text-align: right;">(‘bill_length_mm’, ‘min’)</th>
+<th style="text-align: right;">(‘bill_length_mm’, ‘max’)</th>
+<th style="text-align: right;">(‘bill_length_mm’, ‘median’)</th>
+<th style="text-align: right;">(‘bill_length_mm’, ‘mean’)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Adelie</td>
+<td style="text-align: right;">32.1</td>
+<td style="text-align: right;">46</td>
+<td style="text-align: right;">38.8</td>
+<td style="text-align: right;">38.7914</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Chinstrap</td>
+<td style="text-align: right;">40.9</td>
+<td style="text-align: right;">58</td>
+<td style="text-align: right;">49.55</td>
+<td style="text-align: right;">48.8338</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Gentoo</td>
+<td style="text-align: right;">40.9</td>
+<td style="text-align: right;">59.6</td>
+<td style="text-align: right;">47.3</td>
+<td style="text-align: right;">47.5049</td>
+</tr>
+</tbody>
+</table>
+<ol type="1">
+<li>Adelie 펭귄의 부리 길이가 가장 짧으며, 평균적으로 약 38.79mm이다.</li>
+<li>Chinstrap 펭귄이 가장 긴 부리를 가지며, 평균적으로 48.83mm로 측정됨.</li>
+<li>Gentoo 펭귄의 부리 길이는 Chinstrap보다는 짧지만, Adelie보다는 길다.</li>
+</ol>
+</section>
+<section id="종별-부리-넓이최소최대중앙값평균" class="level4">
+<h4 class="anchored" data-anchor-id="종별-부리-넓이최소최대중앙값평균">3.2.2 종별 부리 넓이(최소/최대/중앙값/평균)</h4>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">species</th>
+<th style="text-align: right;">(‘bill_depth_mm’, ‘min’)</th>
+<th style="text-align: right;">(‘bill_depth_mm’, ‘max’)</th>
+<th style="text-align: right;">(‘bill_depth_mm’, ‘median’)</th>
+<th style="text-align: right;">(‘bill_depth_mm’, ‘mean’)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Adelie</td>
+<td style="text-align: right;">15.5</td>
+<td style="text-align: right;">21.5</td>
+<td style="text-align: right;">18.4</td>
+<td style="text-align: right;">18.3464</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Chinstrap</td>
+<td style="text-align: right;">16.4</td>
+<td style="text-align: right;">20.8</td>
+<td style="text-align: right;">18.45</td>
+<td style="text-align: right;">18.4206</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Gentoo</td>
+<td style="text-align: right;">13.1</td>
+<td style="text-align: right;">17.3</td>
+<td style="text-align: right;">15</td>
+<td style="text-align: right;">14.9821</td>
+</tr>
+</tbody>
+</table>
+<pre><code>1. Adelie 펭귄의 부리 길이가 가장 짧으며, 평균적으로 약 38.79mm이다.
+2. Chinstrap 펭귄이 가장 긴 부리를 가지며, 평균적으로 48.83mm로 측정됨.
+3. Gentoo 펭귄의 부리 길이는 Chinstrap보다는 짧지만, Adelie보다는 길다.</code></pre>
+</section>
+<section id="종별-날개-길이최소최대중앙값평균" class="level4">
+<h4 class="anchored" data-anchor-id="종별-날개-길이최소최대중앙값평균">3.2.3 종별 날개 길이(최소/최대/중앙값/평균)</h4>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">species</th>
+<th style="text-align: right;">(‘flip_len_mm’, ‘min’)</th>
+<th style="text-align: right;">(‘flip_len_mm’, ‘max’)</th>
+<th style="text-align: right;">(‘flip_len_mm’, ‘median’)</th>
+<th style="text-align: right;">(‘flip_len_mm’, ‘mean’)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Adelie</td>
+<td style="text-align: right;">172</td>
+<td style="text-align: right;">210</td>
+<td style="text-align: right;">190</td>
+<td style="text-align: right;">189.954</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Chinstrap</td>
+<td style="text-align: right;">178</td>
+<td style="text-align: right;">212</td>
+<td style="text-align: right;">196</td>
+<td style="text-align: right;">195.824</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Gentoo</td>
+<td style="text-align: right;">203</td>
+<td style="text-align: right;">231</td>
+<td style="text-align: right;">216</td>
+<td style="text-align: right;">217.187</td>
+</tr>
+</tbody>
+</table>
+<ol type="1">
+<li>Gentoo 펭귄이 가장 긴 날개를 가짐 (평균 217.19mm)</li>
+<li>Adelie 펭귄의 날개 길이가 가장 짧음 (평균 189.95mm)</li>
+<li>Chinstrap 펭귄은 Adelie와 Gentoo 사이에 위치 (평균 195.82mm)</li>
+</ol>
+</section>
+<section id="종별-몸무게최소최대중앙값평균" class="level4">
+<h4 class="anchored" data-anchor-id="종별-몸무게최소최대중앙값평균">3.2.4 종별 몸무게(최소/최대/중앙값/평균)</h4>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">species</th>
+<th style="text-align: right;">(‘body_mass_g’, ‘min’)</th>
+<th style="text-align: right;">(‘body_mass_g’, ‘max’)</th>
+<th style="text-align: right;">(‘body_mass_g’, ‘median’)</th>
+<th style="text-align: right;">(‘body_mass_g’, ‘mean’)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Adelie</td>
+<td style="text-align: right;">2850</td>
+<td style="text-align: right;">4775</td>
+<td style="text-align: right;">3700</td>
+<td style="text-align: right;">3700.66</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Chinstrap</td>
+<td style="text-align: right;">2700</td>
+<td style="text-align: right;">4800</td>
+<td style="text-align: right;">3700</td>
+<td style="text-align: right;">3733.09</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Gentoo</td>
+<td style="text-align: right;">3950</td>
+<td style="text-align: right;">6300</td>
+<td style="text-align: right;">5000</td>
+<td style="text-align: right;">5076.02</td>
+</tr>
+</tbody>
+</table>
+<ol type="1">
+<li>Gentoo 펭귄이 가장 무겁다 (평균 체중 5076.02g, 중앙값 5000g)</li>
+<li>Adelie와 Chinstrap 펭귄의 평균 체중은 비슷하지만, Chinstrap이 약간 더 무거움.</li>
+<li><strong>Adelie 펭귄의 최소 체중(2850g)</strong>이 가장 가벼움, 반면 <strong>Gentoo 펭귄의 최대 체중(6300g)</strong>이 가장 무거움.</li>
+</ol>
+</section>
+</section>
+<section id="평균-요약" class="level2">
+<h2 class="anchored" data-anchor-id="평균-요약">3.3 평균 요약</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 14%">
+<col style="width: 21%">
+<col style="width: 20%">
+<col style="width: 25%">
+<col style="width: 17%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: right;">bill_length_mm</th>
+<th style="text-align: right;">bill_depth_mm</th>
+<th style="text-align: right;">flipper_length_mm</th>
+<th style="text-align: right;">body_mass_g</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Adelie</td>
+<td style="text-align: right;">38.7914</td>
+<td style="text-align: right;">18.3464</td>
+<td style="text-align: right;">189.954</td>
+<td style="text-align: right;">3700.66</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Gentoo</td>
+<td style="text-align: right;">47.5049</td>
+<td style="text-align: right;">14.9821</td>
+<td style="text-align: right;">217.187</td>
+<td style="text-align: right;">5076.02</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Chinstrap</td>
+<td style="text-align: right;">48.8338</td>
+<td style="text-align: right;">18.4206</td>
+<td style="text-align: right;">195.824</td>
+<td style="text-align: right;">3733.09</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="서식지별-펭귄-정보" class="level2">
+<h2 class="anchored" data-anchor-id="서식지별-펭귄-정보">3.4 서식지별 펭귄 정보</h2>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: right;"></th>
+<th style="text-align: left;">island</th>
+<th style="text-align: left;">species</th>
+<th style="text-align: left;">sex</th>
+<th style="text-align: right;">count</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">Biscoe</td>
+<td style="text-align: left;">Adelie</td>
+<td style="text-align: left;">female</td>
+<td style="text-align: right;">22</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">Biscoe</td>
+<td style="text-align: left;">Adelie</td>
+<td style="text-align: left;">male</td>
+<td style="text-align: right;">22</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">Biscoe</td>
+<td style="text-align: left;">Gentoo</td>
+<td style="text-align: left;">female</td>
+<td style="text-align: right;">58</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">3</td>
+<td style="text-align: left;">Biscoe</td>
+<td style="text-align: left;">Gentoo</td>
+<td style="text-align: left;">male</td>
+<td style="text-align: right;">61</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">4</td>
+<td style="text-align: left;">Dream</td>
+<td style="text-align: left;">Adelie</td>
+<td style="text-align: left;">female</td>
+<td style="text-align: right;">27</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">5</td>
+<td style="text-align: left;">Dream</td>
+<td style="text-align: left;">Adelie</td>
+<td style="text-align: left;">male</td>
+<td style="text-align: right;">28</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">6</td>
+<td style="text-align: left;">Dream</td>
+<td style="text-align: left;">Chinstrap</td>
+<td style="text-align: left;">female</td>
+<td style="text-align: right;">34</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">7</td>
+<td style="text-align: left;">Dream</td>
+<td style="text-align: left;">Chinstrap</td>
+<td style="text-align: left;">male</td>
+<td style="text-align: right;">34</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">8</td>
+<td style="text-align: left;">Torgersen</td>
+<td style="text-align: left;">Adelie</td>
+<td style="text-align: left;">female</td>
+<td style="text-align: right;">24</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">9</td>
+<td style="text-align: left;">Torgersen</td>
+<td style="text-align: left;">Adelie</td>
+<td style="text-align: left;">male</td>
+<td style="text-align: right;">23</td>
+</tr>
+</tbody>
+</table>
+<ol type="1">
+<li>성비가 비교적 균형 잡혀 있음 (특히 Chinstrap 펭귄은 완전히 동일한 개체 수를 가짐).</li>
+<li>Biscoe 섬에 Gentoo 펭귄이 가장 많음 (전체 119마리, 수컷이 약간 많음).</li>
+<li>Dream 섬에는 Chinstrap 펭귄만 서식함.</li>
+</ol>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: right;"></th>
+<th style="text-align: left;">island</th>
+<th style="text-align: left;">species</th>
+<th style="text-align: right;">count</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">Biscoe</td>
+<td style="text-align: left;">Adelie</td>
+<td style="text-align: right;">44</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">Biscoe</td>
+<td style="text-align: left;">Gentoo</td>
+<td style="text-align: right;">124</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">Dream</td>
+<td style="text-align: left;">Adelie</td>
+<td style="text-align: right;">56</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">3</td>
+<td style="text-align: left;">Dream</td>
+<td style="text-align: left;">Chinstrap</td>
+<td style="text-align: right;">68</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">4</td>
+<td style="text-align: left;">Torgersen</td>
+<td style="text-align: left;">Adelie</td>
+<td style="text-align: right;">52</td>
+</tr>
+</tbody>
+</table>
+<ol type="1">
+<li>Biscoe 섬에 Gentoo 펭귄이 가장 많이 서식 (124마리).</li>
+<li>Chinstrap 펭귄은 Dream 섬에만 분포 (총 68마리).</li>
+<li>Adelie 펭귄은 모든 섬에 걸쳐 서식하지만, 개체 수가 비교적 고르게 분포됨.</li>
+</ol>
+</section>
+<section id="연도별-조사-표본-수" class="level2">
+<h2 class="anchored" data-anchor-id="연도별-조사-표본-수">3.5 연도별 조사 표본 수</h2>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: center;">year</th>
+<th style="text-align: center;">total_count</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">0</td>
+<td style="text-align: center;">2007</td>
+<td style="text-align: center;">110</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">1</td>
+<td style="text-align: center;">2008</td>
+<td style="text-align: center;">114</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2</td>
+<td style="text-align: center;">2009</td>
+<td style="text-align: center;">120</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="종합-결론" class="level2">
+<h2 class="anchored" data-anchor-id="종합-결론">4. 종합 결론</h2>
+<pre><code>• 부리 길이: Chinstrap 펭귄 &gt; Gentoo 펭귄 &gt; Adelie 펭귄
+• 부리 깊이: Adelie ≈ Chinstrap &gt; Gentoo
+• 날개 길이: Gentoo &gt; Chinstrap &gt; Adelie
+• 체중: Gentoo (가장 무거움) &gt; Chinstrap ≈ Adelie
+• 개체 수: Biscoe 섬에 Gentoo 펭귄이 가장 많고, Dream 섬에는 Chinstrap 펭귄만 존재.</code></pre>
+</section>
+<section id="개선사항" class="level2">
+<h2 class="anchored" data-anchor-id="개선사항">5. 개선사항</h2>
+<ul>
+<li><p>데이터 해석 과정에서 오류가 있을 수 있음</p></li>
+<li><p>nan 값 및 이상치 처리 전후의 결과 비교를 추가로 고려할 필요성</p></li>
+<li><p>추후 분석 시 시각화 자료(그래프, 이미지) 등 보완 필요</p></li>
+</ul>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
