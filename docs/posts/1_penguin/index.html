@@ -6,10 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Harlow Malloc">
-<meta name="dcterms.date" content="2025-03-06">
+<meta name="author" content="LS_team_5">
+<meta name="dcterms.date" content="2025-03-07">
 
-<title>Post With Code – hans-blog</title>
+<title>Analysis of Palmer Penguins – hans-blog</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -74,7 +74,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../../site_libs/quarto-html/quarto-syntax-highlighting-2f5df379a58b258e96c21c0638c20c03.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-6bd9cfa162949bde0a231f530c97869d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-17169bbd60dd3d783dd0160900f6ae7f.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -107,7 +107,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link rel="stylesheet" href="../../styles.css">
 </head>
 
-<body class="nav-fixed fullcontent">
+<body class="nav-fixed">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top quarto-banner">
@@ -149,7 +149,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <h1 class="title">Post With Code</h1>
+      <h1 class="title">Analysis of Palmer Penguins</h1>
                                 <div class="quarto-categories">
                 <div class="quarto-category">news</div>
                 <div class="quarto-category">code</div>
@@ -164,14 +164,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div>
       <div class="quarto-title-meta-heading">Author</div>
       <div class="quarto-title-meta-contents">
-               <p>Harlow Malloc </p>
+               <p>LS_team_5 </p>
             </div>
     </div>
       
       <div>
       <div class="quarto-title-meta-heading">Published</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">March 6, 2025</p>
+        <p class="date">March 7, 2025</p>
       </div>
     </div>
     
@@ -182,7 +182,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#분석-개요-및-목표" id="toc-분석-개요-및-목표" class="nav-link active" data-scroll-target="#분석-개요-및-목표"><span class="header-section-number">1</span> 분석 개요 및 목표</a></li>
+  <li><a href="#데이터소개" id="toc-데이터소개" class="nav-link" data-scroll-target="#데이터소개"><span class="header-section-number">2</span> 데이터소개</a></li>
+  <li><a href="#분석-내용" id="toc-분석-내용" class="nav-link" data-scroll-target="#분석-내용"><span class="header-section-number">3</span> 분석 내용</a></li>
+  <li><a href="#종별-신체-특성" id="toc-종별-신체-특성" class="nav-link" data-scroll-target="#종별-신체-특성"><span class="header-section-number">4</span> 종별 신체 특성</a></li>
+  <li><a href="#평균-요약" id="toc-평균-요약" class="nav-link" data-scroll-target="#평균-요약"><span class="header-section-number">5</span> 평균 요약</a></li>
+  <li><a href="#서식지별-펭귄-정보" id="toc-서식지별-펭귄-정보" class="nav-link" data-scroll-target="#서식지별-펭귄-정보"><span class="header-section-number">6</span> 서식지별 펭귄 정보</a></li>
+  <li><a href="#연도별-조사-표본-수" id="toc-연도별-조사-표본-수" class="nav-link" data-scroll-target="#연도별-조사-표본-수"><span class="header-section-number">7</span> 연도별 조사 표본 수</a></li>
+  <li><a href="#종합-결론" id="toc-종합-결론" class="nav-link" data-scroll-target="#종합-결론"><span class="header-section-number">8</span> 종합 결론</a></li>
+  <li><a href="#개선사항" id="toc-개선사항" class="nav-link" data-scroll-target="#개선사항"><span class="header-section-number">9</span> 개선사항</a></li>
+  </ul>
+</nav>
+    </div>
 <!-- main -->
 <main class="content quarto-banner-title-block" id="quarto-document-content">
 
@@ -190,7 +206,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 
-<div id="5aa7780e" class="cell" data-execution_count="1">
+<div id="9a933f3d" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> palmerpenguins <span class="im">import</span> load_penguins</span>
@@ -317,17 +333,14 @@ body_mass_g            Gentoo  5092.436975      Adelie  3706.164384
 4  Torgersen     Adelie     47</code></pre>
 </div>
 </div>
-<hr>
-<p>title: “팔머펭귄 종별 특징 분석 _ 5조(김예원, 박한슬, 송성필)” format: html jupyter: python3</p>
-<hr>
-<section id="분석-개요-및-목표" class="level2">
-<h2 class="anchored" data-anchor-id="분석-개요-및-목표">1. 분석 개요 및 목표</h2>
+<section id="분석-개요-및-목표" class="level2" data-number="1">
+<h2 data-number="1" class="anchored" data-anchor-id="분석-개요-및-목표"><span class="header-section-number">1</span> 분석 개요 및 목표</h2>
 <ul>
 <li>펭귄 3종(Adelie, Gentoo, Chinstrap)별 특징을 알아보자!</li>
 </ul>
 </section>
-<section id="데이터소개" class="level2">
-<h2 class="anchored" data-anchor-id="데이터소개">2. 데이터소개</h2>
+<section id="데이터소개" class="level2" data-number="2">
+<h2 data-number="2" class="anchored" data-anchor-id="데이터소개"><span class="header-section-number">2</span> 데이터소개</h2>
 <ul>
 <li><strong>주요 변수:</strong>
 <ul>
@@ -337,10 +350,10 @@ body_mass_g            Gentoo  5092.436975      Adelie  3706.164384
 </ul></li>
 </ul>
 </section>
-<section id="분석-내용" class="level2">
-<h2 class="anchored" data-anchor-id="분석-내용">3. 분석 내용</h2>
-<section id="종별-서식지" class="level4">
-<h4 class="anchored" data-anchor-id="종별-서식지">3.1 종별 서식지</h4>
+<section id="분석-내용" class="level2" data-number="3">
+<h2 data-number="3" class="anchored" data-anchor-id="분석-내용"><span class="header-section-number">3</span> 분석 내용</h2>
+<section id="종별-서식지" class="level4" data-number="3.0.1">
+<h4 data-number="3.0.1" class="anchored" data-anchor-id="종별-서식지"><span class="header-section-number">3.0.1</span> 종별 서식지</h4>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -394,17 +407,17 @@ body_mass_g            Gentoo  5092.436975      Adelie  3706.164384
 </tbody>
 </table>
 </section>
-<section id="상기-index는-다음을-나타낸다." class="level4">
-<h4 class="anchored" data-anchor-id="상기-index는-다음을-나타낸다.">상기 index는 다음을 나타낸다.</h4>
+<section id="상기-index는-다음을-나타낸다." class="level4" data-number="3.0.2">
+<h4 data-number="3.0.2" class="anchored" data-anchor-id="상기-index는-다음을-나타낸다."><span class="header-section-number">3.0.2</span> 상기 index는 다음을 나타낸다.</h4>
 <p>Gentoo펭귄은 Biscoe섬만 서식한다.</p>
 <p>Chinstrap펭귄은 Dream섬에서만 서식한다.</p>
 <p>Adelie펭귄은 Torgers, Biscoe, Dream 전지역에서 서식한다.</p>
 </section>
 </section>
-<section id="종별-신체-특성" class="level2">
-<h2 class="anchored" data-anchor-id="종별-신체-특성">3.2 종별 신체 특성</h2>
-<section id="종별-부리-길이최소최대중앙값평균" class="level4">
-<h4 class="anchored" data-anchor-id="종별-부리-길이최소최대중앙값평균">3.2.1 종별 부리 길이(최소/최대/중앙값/평균)</h4>
+<section id="종별-신체-특성" class="level2" data-number="4">
+<h2 data-number="4" class="anchored" data-anchor-id="종별-신체-특성"><span class="header-section-number">4</span> 종별 신체 특성</h2>
+<section id="종별-부리-길이최소최대중앙값평균" class="level4" data-number="4.0.1">
+<h4 data-number="4.0.1" class="anchored" data-anchor-id="종별-부리-길이최소최대중앙값평균"><span class="header-section-number">4.0.1</span> 종별 부리 길이(최소/최대/중앙값/평균)</h4>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 20%">
@@ -452,8 +465,8 @@ body_mass_g            Gentoo  5092.436975      Adelie  3706.164384
 <li>Gentoo 펭귄의 부리 길이는 Chinstrap보다는 짧지만, Adelie보다는 길다.</li>
 </ol>
 </section>
-<section id="종별-부리-넓이최소최대중앙값평균" class="level4">
-<h4 class="anchored" data-anchor-id="종별-부리-넓이최소최대중앙값평균">3.2.2 종별 부리 넓이(최소/최대/중앙값/평균)</h4>
+<section id="종별-부리-넓이최소최대중앙값평균" class="level4" data-number="4.0.2">
+<h4 data-number="4.0.2" class="anchored" data-anchor-id="종별-부리-넓이최소최대중앙값평균"><span class="header-section-number">4.0.2</span> 종별 부리 넓이(최소/최대/중앙값/평균)</h4>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 20%">
@@ -499,8 +512,8 @@ body_mass_g            Gentoo  5092.436975      Adelie  3706.164384
 2. Chinstrap 펭귄이 가장 긴 부리를 가지며, 평균적으로 48.83mm로 측정됨.
 3. Gentoo 펭귄의 부리 길이는 Chinstrap보다는 짧지만, Adelie보다는 길다.</code></pre>
 </section>
-<section id="종별-날개-길이최소최대중앙값평균" class="level4">
-<h4 class="anchored" data-anchor-id="종별-날개-길이최소최대중앙값평균">3.2.3 종별 날개 길이(최소/최대/중앙값/평균)</h4>
+<section id="종별-날개-길이최소최대중앙값평균" class="level4" data-number="4.0.3">
+<h4 data-number="4.0.3" class="anchored" data-anchor-id="종별-날개-길이최소최대중앙값평균"><span class="header-section-number">4.0.3</span> 종별 날개 길이(최소/최대/중앙값/평균)</h4>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 20%">
@@ -548,8 +561,8 @@ body_mass_g            Gentoo  5092.436975      Adelie  3706.164384
 <li>Chinstrap 펭귄은 Adelie와 Gentoo 사이에 위치 (평균 195.82mm)</li>
 </ol>
 </section>
-<section id="종별-몸무게최소최대중앙값평균" class="level4">
-<h4 class="anchored" data-anchor-id="종별-몸무게최소최대중앙값평균">3.2.4 종별 몸무게(최소/최대/중앙값/평균)</h4>
+<section id="종별-몸무게최소최대중앙값평균" class="level4" data-number="4.0.4">
+<h4 data-number="4.0.4" class="anchored" data-anchor-id="종별-몸무게최소최대중앙값평균"><span class="header-section-number">4.0.4</span> 종별 몸무게(최소/최대/중앙값/평균)</h4>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 20%">
@@ -598,8 +611,8 @@ body_mass_g            Gentoo  5092.436975      Adelie  3706.164384
 </ol>
 </section>
 </section>
-<section id="평균-요약" class="level2">
-<h2 class="anchored" data-anchor-id="평균-요약">3.3 평균 요약</h2>
+<section id="평균-요약" class="level2" data-number="5">
+<h2 data-number="5" class="anchored" data-anchor-id="평균-요약"><span class="header-section-number">5</span> 평균 요약</h2>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 14%">
@@ -642,8 +655,8 @@ body_mass_g            Gentoo  5092.436975      Adelie  3706.164384
 </tbody>
 </table>
 </section>
-<section id="서식지별-펭귄-정보" class="level2">
-<h2 class="anchored" data-anchor-id="서식지별-펭귄-정보">3.4 서식지별 펭귄 정보</h2>
+<section id="서식지별-펭귄-정보" class="level2" data-number="6">
+<h2 data-number="6" class="anchored" data-anchor-id="서식지별-펭귄-정보"><span class="header-section-number">6</span> 서식지별 펭귄 정보</h2>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -780,8 +793,8 @@ body_mass_g            Gentoo  5092.436975      Adelie  3706.164384
 <li>Adelie 펭귄은 모든 섬에 걸쳐 서식하지만, 개체 수가 비교적 고르게 분포됨.</li>
 </ol>
 </section>
-<section id="연도별-조사-표본-수" class="level2">
-<h2 class="anchored" data-anchor-id="연도별-조사-표본-수">3.5 연도별 조사 표본 수</h2>
+<section id="연도별-조사-표본-수" class="level2" data-number="7">
+<h2 data-number="7" class="anchored" data-anchor-id="연도별-조사-표본-수"><span class="header-section-number">7</span> 연도별 조사 표본 수</h2>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -809,16 +822,16 @@ body_mass_g            Gentoo  5092.436975      Adelie  3706.164384
 </tbody>
 </table>
 </section>
-<section id="종합-결론" class="level2">
-<h2 class="anchored" data-anchor-id="종합-결론">4. 종합 결론</h2>
+<section id="종합-결론" class="level2" data-number="8">
+<h2 data-number="8" class="anchored" data-anchor-id="종합-결론"><span class="header-section-number">8</span> 종합 결론</h2>
 <pre><code>• 부리 길이: Chinstrap 펭귄 &gt; Gentoo 펭귄 &gt; Adelie 펭귄
 • 부리 깊이: Adelie ≈ Chinstrap &gt; Gentoo
 • 날개 길이: Gentoo &gt; Chinstrap &gt; Adelie
 • 체중: Gentoo (가장 무거움) &gt; Chinstrap ≈ Adelie
 • 개체 수: Biscoe 섬에 Gentoo 펭귄이 가장 많고, Dream 섬에는 Chinstrap 펭귄만 존재.</code></pre>
 </section>
-<section id="개선사항" class="level2">
-<h2 class="anchored" data-anchor-id="개선사항">5. 개선사항</h2>
+<section id="개선사항" class="level2" data-number="9">
+<h2 data-number="9" class="anchored" data-anchor-id="개선사항"><span class="header-section-number">9</span> 개선사항</h2>
 <ul>
 <li><p>데이터 해석 과정에서 오류가 있을 수 있음</p></li>
 <li><p>nan 값 및 이상치 처리 전후의 결과 비교를 추가로 고려할 필요성</p></li>
