@@ -1,0 +1,38 @@
+---
+title: "나의 첫 블로그 포스트"
+author: "PHS"
+format:
+  html:
+    toc: true
+    number-sections: true
+    theme: cerulean
+
+    highlight: breeze
+    code-fold: true
+    search : true
+
+
+date: "2025-03-07"
+categories: [python, pandas, analysis]
+image: "image.png"
+---
+
+![](image.png)
+
+## 파이썬 데이터 분석
+
+### numpy
+
+```{python}
+import numpy as np
+
+a = np.array([3,2,15])
+a
+
+```
+
+### pandas
+
+```{python}
+
+```

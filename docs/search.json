@@ -25,7 +25,7 @@
     "href": "index.html",
     "title": "hans-blog",
     "section": "",
-    "text": "터미널, 파이썬 인터프리터, 주피터 인터프리터 맞추기\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nAnalysis of Palmer Penguins\n\n\n\n\n\n\nnews\n\n\ncode\n\n\nanalysis\n\n\n\n\n\n\n\n\n\nMar 7, 2025\n\n\nLS_team_5\n\n\n\n\n\n\n\n\n\n\n\n\n팔머펭귄 종별 특징 분석 _ 5조(김예원, 박한슬, 송성필)\n\n\n\n\n\n\nnews\n\n\ncode\n\n\nanalysis\n\n\n\n\n\n\n\n\n\nMar 6, 2025\n\n\nHarlow Malloc\n\n\n\n\n\n\n\n\n\n\n\n\nWelcome To My Blog\n\n\n\n\n\n\nnews\n\n\n\n\n\n\n\n\n\nMar 3, 2025\n\n\nTristan O’Malley\n\n\n\n\n\n\nNo matching items"
+    "text": "터미널, 파이썬 인터프리터, 주피터 인터프리터 맞추기\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n나의 첫 블로그 포스트\n\n\n\n\n\n\npython\n\n\npandas\n\n\nanalysis\n\n\n\n\n\n\n\n\n\nMar 7, 2025\n\n\nPHS\n\n\n\n\n\n\n\n\n\n\n\n\nAnalysis of Palmer Penguins\n\n\n\n\n\n\nnews\n\n\ncode\n\n\nanalysis\n\n\n\n\n\n\n\n\n\nMar 7, 2025\n\n\nLS_team_5\n\n\n\n\n\n\n\n\n\n\n\n\n팔머펭귄 종별 특징 분석 _ 5조(김예원, 박한슬, 송성필)\n\n\n\n\n\n\nnews\n\n\ncode\n\n\nanalysis\n\n\n\n\n\n\n\n\n\nMar 6, 2025\n\n\nHarlow Malloc\n\n\n\n\n\n\n\n\n\n\n\n\nWelcome To My Blog\n\n\n\n\n\n\nnews\n\n\n\n\n\n\n\n\n\nMar 3, 2025\n\n\nTristan O’Malley\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "posts/post-with-code/index.html#분석-개요-및-목표",
@@ -159,5 +159,19 @@
     "title": "Analysis of Palmer Penguins",
     "section": "9 개선사항",
     "text": "9 개선사항\n\n데이터 해석 과정에서 오류가 있을 수 있음\nnan 값 및 이상치 처리 전후의 결과 비교를 추가로 고려할 필요성\n추후 분석 시 시각화 자료(그래프, 이미지) 등 보완 필요"
+  },
+  {
+    "objectID": "posts/my_first_post/index.html",
+    "href": "posts/my_first_post/index.html",
+    "title": "나의 첫 블로그 포스트",
+    "section": "",
+    "text": "Code\nimport numpy as np\n\na = np.array([3,2,15])\na\n\n\narray([ 3,  2, 15])"
+  },
+  {
+    "objectID": "posts/my_first_post/index.html#파이썬-데이터-분석",
+    "href": "posts/my_first_post/index.html#파이썬-데이터-분석",
+    "title": "나의 첫 블로그 포스트",
+    "section": "1 파이썬 데이터 분석",
+    "text": "1 파이썬 데이터 분석\n\n1.1 numpy\n\n\nCode\nimport numpy as np\n\na = np.array([3,2,15])\na\n\n\narray([ 3,  2, 15])\n\n\n\n\n1.2 pandas"
   }
 ]
